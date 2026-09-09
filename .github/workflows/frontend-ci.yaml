@@ -57,5 +57,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+      - name: Set up Node.js and restore npm cache
+        uses: actions/setup-node@v7
+        with:
+          node-version: '18.14.2'
+          cache: 'npm'
+          cache-dependency-path: starter/frontend/package-lock.json
+      - name: Install frontend dependencies
+        working-directory: starter/frontend
+        run: npm ci
       - name: Build frontend image
         run: docker build --build-arg REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag mp-frontend:latest starter/frontend
