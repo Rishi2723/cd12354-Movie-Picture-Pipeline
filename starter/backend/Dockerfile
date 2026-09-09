@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.10-slim-bookworm
 ENV FLASK_RUN_HOST=0.0.0.0
 
 WORKDIR /
@@ -16,7 +16,7 @@ RUN useradd --uid 1000 --create-home app && \
 RUN mkdir -p /var/www/app && mkdir /app
 
 COPY Pipfile* /app
-RUN cd /app && pipenv install --system --deploy --ignore-pipfile
+RUN cd /app && pipenv sync --system
 
 COPY . /app
 
